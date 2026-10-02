@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://kenjasub.kofukuai.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kenjasub.kofukuai.com/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://kenjasub.kofukuai.com/zh.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kenjasub.kofukuai.com/"/>
+    <lastmod>2026-10-02T22:41:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://kenjasub.kofukuai.com/zh.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kenjasub.kofukuai.com/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://kenjasub.kofukuai.com/zh.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kenjasub.kofukuai.com/"/>
+    <lastmod>2026-10-02T22:41:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kenjasub.kofukuai.com/privacy.html</loc>
+    <lastmod>2026-10-02T21:40:55+08:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
