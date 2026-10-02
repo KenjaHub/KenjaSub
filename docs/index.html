@@ -216,9 +216,10 @@ section{padding:88px 0}
 .sec-lead{color:var(--paper-dim);max-width:64ch;margin-bottom:48px;font-size:17.5px}
 
 /* scenes / workflow */
-.scenes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.scenes{display:grid;grid-template-columns:1fr;gap:24px}
 .scene{
-  border:1px solid var(--line-2);border-radius:16px;padding:30px 26px 26px;
+  display:grid;grid-template-columns:minmax(300px,4fr) 6fr;gap:38px;align-items:center;
+  border:1px solid var(--line-2);border-radius:16px;padding:34px 32px;
   background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.008));
   transition:border-color .2s, transform .2s;position:relative;overflow:hidden;
 }
@@ -226,7 +227,7 @@ section{padding:88px 0}
 .scene .tag{font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:.12em;margin-bottom:14px;display:block}
 .scene h3{font-family:var(--serif);font-size:24px;font-weight:600;margin-bottom:10px}
 .scene p{color:var(--paper-dim);font-size:15.5px}
-.scene img{width:100%;height:auto;border-radius:10px;margin-top:20px;border:1px solid var(--line-2);display:block}
+.scene img{width:100%;height:auto;border-radius:10px;border:1px solid var(--line-2);display:block}
 
 /* feature grid */
 .feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2);border-radius:16px;overflow:hidden}
@@ -258,16 +259,16 @@ section{padding:88px 0}
 
 /* faq */
 .faq{max-width:780px}
-details{border-bottom:1px solid var(--line-2);padding:6px 0}
-summary{
+.faq details{border-bottom:1px solid var(--line-2);padding:6px 0}
+.faq summary{
   cursor:pointer;list-style:none;padding:20px 4px;font-size:18px;font-weight:600;
   display:flex;align-items:center;gap:16px;transition:color .15s;
 }
-summary::-webkit-details-marker{display:none}
-summary::before{content:"Q";font-family:var(--mono);color:var(--amber);font-size:14px;border:1px solid var(--line);border-radius:8px;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 30px}
-summary:hover{color:var(--amber-soft)}
-details[open] summary{color:var(--amber-soft)}
-details p{padding:0 4px 22px 50px;color:var(--paper-dim);font-size:15.5px;max-width:62ch}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"Q";font-family:var(--mono);color:var(--amber);font-size:14px;border:1px solid var(--line);border-radius:8px;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 30px}
+.faq summary:hover{color:var(--amber-soft)}
+.faq details[open] summary{color:var(--amber-soft)}
+.faq details p{padding:0 4px 22px 50px;color:var(--paper-dim);font-size:15.5px;max-width:62ch}
 
 /* footer */
 footer{border-top:1px solid var(--line-2);padding:52px 0 64px;margin-top:40px}
@@ -284,7 +285,8 @@ footer{border-top:1px solid var(--line-2);padding:52px 0 64px;margin-top:40px}
 .rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
 
 @media(max-width:900px){
-  .scenes{grid-template-columns:1fr}
+  .scene{grid-template-columns:1fr;padding:26px 22px;gap:0}
+  .scene img{margin-top:20px}
   .feat-grid{grid-template-columns:1fr}
   .privacy-band{grid-template-columns:1fr;padding:40px 30px}
   .bar nav > a{display:none}
@@ -354,21 +356,27 @@ footer{border-top:1px solid var(--line-2);padding:52px 0 64px;margin-top:40px}
     <p class="sec-lead rv">From raw video to shipped bilingual subtitles without leaving the app — batch it, refine it, and bring your own model.</p>
     <div class="scenes">
       <article class="scene rv">
-        <span class="tag">TAB 01 · AUTO</span>
-        <h3>Batch, hands-off</h3>
-        <p>Drop several videos and get subtitle files. Speech recognition, translation and export run as one queue — per-video overrides, live progress, one-click retry.</p>
+        <div>
+          <span class="tag">TAB 01 · AUTO</span>
+          <h3>Batch, hands-off</h3>
+          <p>Drop several videos and get subtitle files. Speech recognition, translation and export run as one queue — per-video overrides, live progress, one-click retry.</p>
+        </div>
         <img src="assets/auto.png" alt="KenjaSub Auto tab: batch transcription and translation queue for multiple videos" loading="lazy" width="2560" height="1600">
       </article>
       <article class="scene rv d1">
-        <span class="tag">TAB 02 · REFINE</span>
-        <h3>The subtitle studio</h3>
-        <p>An mpv-based player opens MKV, WebM and AVI natively. Cue list and waveform stay in sync; drag timings, split and merge cues, shift the whole track, undo anything, export SRT or WebVTT.</p>
+        <div>
+          <span class="tag">TAB 02 · REFINE</span>
+          <h3>The subtitle studio</h3>
+          <p>An mpv-based player opens MKV, WebM and AVI natively. Cue list and waveform stay in sync; drag timings, split and merge cues, shift the whole track, undo anything, export SRT or WebVTT.</p>
+        </div>
         <img src="assets/refine.png" alt="KenjaSub Refine studio: bilingual cue list, waveform timing and video preview" loading="lazy" width="2560" height="1600">
       </article>
       <article class="scene rv d2">
-        <span class="tag">TAB 03 · MODELS</span>
-        <h3>Bring your own key</h3>
-        <p>Any OpenAI-compatible provider — OpenAI, DeepSeek, OpenRouter, Ollama, LM Studio or your own endpoint. Keys live in your Mac's Keychain, never in plain files.</p>
+        <div>
+          <span class="tag">TAB 03 · MODELS</span>
+          <h3>Bring your own key</h3>
+          <p>Any OpenAI-compatible provider — OpenAI, DeepSeek, OpenRouter, Ollama, LM Studio or your own endpoint. Keys live in your Mac's Keychain, never in plain files.</p>
+        </div>
         <img src="assets/models.png" alt="KenjaSub Models tab: manage OpenAI-compatible AI providers with keys stored in Keychain" loading="lazy" width="2560" height="1600">
       </article>
     </div>
