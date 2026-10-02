@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KenjaSub — AI Subtitle Editor for Mac · Transcribe, Translate &amp; Polish Bilingual Subtitles</title>
+<meta name="description" content="KenjaSub turns any video into polished bilingual subtitles on your Mac. On-device transcription, context-aware AI translation with your own key, and a frame-accurate SRT/VTT subtitle studio. Private by default.">
+<link rel="canonical" href="https://kenjahub.github.io/KenjaSub/">
+<link rel="alternate" hreflang="en" href="https://kenjahub.github.io/KenjaSub/">
+<link rel="alternate" hreflang="zh-Hans" href="https://kenjahub.github.io/KenjaSub/zh.html">
+<link rel="alternate" hreflang="x-default" href="https://kenjahub.github.io/KenjaSub/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="KenjaSub">
+<meta property="og:title" content="KenjaSub — AI Subtitle Editor for Mac">
+<meta property="og:description" content="On-device transcription, context-aware AI translation, and a bilingual subtitle studio for Mac. Private by default.">
+<meta property="og:url" content="https://kenjahub.github.io/KenjaSub/">
+<meta property="og:image" content="https://kenjahub.github.io/KenjaSub/assets/refine.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="KenjaSub — AI Subtitle Editor for Mac">
+<meta name="twitter:description" content="Turn any video into bilingual subtitles — transcribed on device, translated in context, refined frame by frame.">
+<meta name="twitter:image" content="https://kenjahub.github.io/KenjaSub/assets/refine.png">
+<meta name="theme-color" content="#0e0c10">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e0c10'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-weight='700' fill='%23f0b429' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "KenjaSub",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "macOS 26",
+  "description": "AI subtitle editor for Mac. On-device transcription, context-aware AI translation with bring-your-own-key models, and a bilingual subtitle studio with waveform, split/merge and SRT/VTT export.",
+  "url": "https://kenjahub.github.io/KenjaSub/",
+  "author": { "@type": "Organization", "name": "KenjaHub", "url": "https://github.com/KenjaHub" },
+  "featureList": [
+    "On-device speech transcription (Apple SpeechAnalyzer)",
+    "Context-aware subtitle translation with any OpenAI-compatible provider",
+    "Local translation engine via Apple's Translation framework",
+    "Bilingual subtitle studio with waveform and cue list",
+    "Split, merge, shift times and frame-accurate timing edits",
+    "Batch processing queue with per-video overrides",
+    "Conversational AI assistant with reviewable diffs",
+    "SRT and WebVTT export",
+    "Native MKV, WebM and AVI playback via mpv"
+  ],
+  "offers": { "@type": "Offer", "availability": "https://schema.org/PreOrder" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does KenjaSub upload my video or audio anywhere?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Speech transcription runs entirely on your Mac with Apple's SpeechAnalyzer — your audio never leaves the device. There are no accounts, no analytics and no tracking. When you choose an AI translation engine, subtitle text is sent only to the provider you configured, only when you run that engine." }
+    },
+    {
+      "@type": "Question",
+      "name": "Which AI models can KenjaSub use for translation?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Any OpenAI-compatible provider: OpenAI, DeepSeek, OpenRouter, Ollama, LM Studio or your own endpoint. API keys are stored in your Mac's Keychain. A fully local option using Apple's Translation framework is also built in." }
+    },
+    {
+      "@type": "Question",
+      "name": "Which video and subtitle formats are supported?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The built-in player opens MKV, WebM and AVI natively (mpv-based), plus standard MP4 and MOV. Subtitles import and export as SRT and WebVTT, including bilingual SRT files with automatic language detection." }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the system requirements?",
+      "acceptedAnswer": { "@type": "Answer", "text": "KenjaSub requires macOS 26 or later. On-device transcription and translation use Apple's neural frameworks, so Apple Silicon is recommended." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I edit subtitle timings manually?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The studio offers drag-to-adjust timing on a synchronized waveform, in/out points at the playhead, typed timecodes, split and merge, global time shift, and full undo/redo." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does KenjaSub include AI model access?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No — AI features are strictly bring-your-own-key. You add a provider and key of your choice; KenjaSub never bundles or resells model access." }
+    }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --ink:#0e0c10;
+  --ink-2:#16131a;
+  --ink-3:#1e1a23;
+  --line:rgba(240,180,41,.14);
+  --line-2:rgba(255,255,255,.08);
+  --amber:#f0b429;
+  --amber-soft:#f6c453;
+  --paper:#f3efe6;
+  --paper-dim:#b7b2a6;
+  --paper-faint:#7d7971;
+  --serif:"Fraunces",Georgia,serif;
+  --sans:"Instrument Sans",-apple-system,"Helvetica Neue",sans-serif;
+  --mono:"Spline Sans Mono","SF Mono",Menlo,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:3;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(240,180,41,.07), transparent 60%),
+    radial-gradient(900px 700px at 100% 100%, rgba(120,80,200,.05), transparent 55%);
+}
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+::selection{background:var(--amber);color:var(--ink)}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px;position:relative;z-index:4}
+
+/* ---------- top bar ---------- */
+.bar{
+  position:sticky;top:0;z-index:10;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(14,12,16,.82);
+  border-bottom:1px solid var(--line);
+}
+.bar .wrap{display:flex;align-items:center;gap:22px;height:60px}
+.logo{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:.01em;color:var(--paper);text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo .dot{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 14px rgba(240,180,41,.8)}
+.bar nav{margin-left:auto;display:flex;gap:26px;align-items:center}
+.bar nav a{color:var(--paper-dim);text-decoration:none;font-size:14.5px;letter-spacing:.02em;transition:color .18s}
+.bar nav a:hover{color:var(--amber-soft)}
+.lang{font-family:var(--mono);font-size:12.5px;color:var(--paper-faint);text-decoration:none;border:1px solid var(--line-2);padding:5px 11px;border-radius:99px;transition:all .18s}
+.lang:hover{border-color:var(--amber);color:var(--amber)}
+
+/* ---------- hero ---------- */
+.hero{padding:96px 0 40px;position:relative}
+.hero .tc{
+  font-family:var(--mono);font-size:12.5px;color:var(--amber);
+  letter-spacing:.14em;text-transform:uppercase;
+  display:flex;align-items:center;gap:14px;margin-bottom:26px;
+}
+.hero .tc::after{content:"";height:1px;flex:0 0 72px;background:linear-gradient(90deg,var(--amber),transparent)}
+.hero h1{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(44px,6.4vw,84px);
+  line-height:1.02;letter-spacing:-.015em;
+  max-width:15ch;
+}
+.hero h1 em{font-style:italic;color:var(--amber);font-weight:500}
+.hero .sub{margin-top:26px;max-width:60ch;color:var(--paper-dim);font-size:19px}
+.hero .sub strong{color:var(--paper);font-weight:600}
+.cta-row{margin-top:38px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:13px 26px;border-radius:12px;text-decoration:none;
+  font-weight:600;font-size:15.5px;letter-spacing:.01em;
+  transition:transform .16s,box-shadow .16s,background .16s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-amber{background:var(--amber);color:#241b05;box-shadow:0 8px 30px rgba(240,180,41,.25)}
+.btn-amber:hover{background:var(--amber-soft)}
+.btn-ghost{border:1px solid var(--line-2);color:var(--paper)}
+.btn-ghost:hover{border-color:var(--amber);color:var(--amber-soft)}
+.cta-note{font-family:var(--mono);font-size:12.5px;color:var(--paper-faint)}
+
+/* film strip w/ cycling captions */
+.screen{
+  margin:64px 0 0;position:relative;border-radius:18px;overflow:hidden;
+  border:1px solid var(--line-2);
+  background:linear-gradient(180deg,#191521,#0d0b11);
+  box-shadow:0 40px 120px rgba(0,0,0,.55), 0 0 0 1px rgba(240,180,41,.06);
+}
+.screen img{display:block;width:100%;height:auto;opacity:.92}
+.screen .cap{
+  position:absolute;left:0;right:0;bottom:34px;text-align:center;pointer-events:none;
+}
+.screen .cap span{
+  display:inline-block;background:rgba(8,6,10,.78);border-radius:8px;
+  padding:10px 18px;font-size:clamp(14px,2vw,19px);font-weight:500;
+  color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.9);
+  opacity:0;animation:capCycle 12s infinite;
+}
+.screen .cap span:nth-child(2){animation-delay:3s}
+.screen .cap span:nth-child(3){animation-delay:6s}
+.screen .cap span:nth-child(4){animation-delay:9s;color:var(--amber-soft)}
+@keyframes capCycle{0%{opacity:0;transform:translateY(6px)}4%,22%{opacity:1;transform:translateY(0)}26%,100%{opacity:0;transform:translateY(-2px)}}
+.screen .tcode{
+  position:absolute;top:16px;right:18px;font-family:var(--mono);font-size:12px;
+  color:rgba(243,239,230,.75);background:rgba(8,6,10,.55);padding:4px 10px;border-radius:6px;
+  letter-spacing:.06em;
+}
+.screen .rec{position:absolute;top:16px;left:18px;display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:12px;color:rgba(243,239,230,.7);background:rgba(8,6,10,.55);padding:4px 10px;border-radius:6px}
+.rec i{width:8px;height:8px;border-radius:50%;background:#e5484d;animation:blink 1.6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* ---------- sections ---------- */
+section{padding:88px 0}
+.sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:14px}
+.sec-head .idx{font-family:var(--mono);font-size:13px;color:var(--amber);letter-spacing:.1em}
+.sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4vw,46px);letter-spacing:-.01em}
+.sec-lead{color:var(--paper-dim);max-width:64ch;margin-bottom:48px;font-size:17.5px}
+
+/* scenes / workflow */
+.scenes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.scene{
+  border:1px solid var(--line-2);border-radius:16px;padding:30px 26px 26px;
+  background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.008));
+  transition:border-color .2s, transform .2s;position:relative;overflow:hidden;
+}
+.scene:hover{border-color:rgba(240,180,41,.4);transform:translateY(-3px)}
+.scene .tag{font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:.12em;margin-bottom:14px;display:block}
+.scene h3{font-family:var(--serif);font-size:24px;font-weight:600;margin-bottom:10px}
+.scene p{color:var(--paper-dim);font-size:15.5px}
+.scene img{width:100%;border-radius:10px;margin-top:20px;border:1px solid var(--line-2);display:block}
+
+/* feature grid */
+.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2);border-radius:16px;overflow:hidden}
+.feat{background:var(--ink);padding:32px 30px;transition:background .2s}
+.feat:hover{background:var(--ink-2)}
+.feat .k{font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:.12em;margin-bottom:12px;display:block}
+.feat h3{font-size:19px;font-weight:600;margin-bottom:8px;letter-spacing:.005em}
+.feat p{color:var(--paper-dim);font-size:15px}
+
+/* privacy band */
+.privacy-band{
+  border:1px solid var(--line);border-radius:20px;padding:56px 48px;
+  background:
+    radial-gradient(600px 240px at 12% 0%, rgba(240,180,41,.08), transparent 60%),
+    var(--ink-2);
+  display:grid;grid-template-columns:1.2fr 1fr;gap:44px;align-items:center;
+}
+.privacy-band h2{font-family:var(--serif);font-weight:600;font-size:clamp(28px,3.4vw,40px);line-height:1.1}
+.privacy-band h2 em{font-style:italic;color:var(--amber)}
+.privacy-band p{color:var(--paper-dim);margin-top:14px;max-width:52ch}
+.pill-list{display:flex;flex-direction:column;gap:12px}
+.pill{
+  display:flex;align-items:center;gap:12px;padding:15px 20px;
+  border:1px solid var(--line-2);border-radius:12px;
+  font-size:15.5px;background:rgba(14,12,16,.6);
+}
+.pill b{color:var(--amber-soft);font-weight:600}
+.pill .tick{color:var(--amber);font-family:var(--mono)}
+
+/* faq */
+.faq{max-width:780px}
+details{border-bottom:1px solid var(--line-2);padding:6px 0}
+summary{
+  cursor:pointer;list-style:none;padding:20px 4px;font-size:18px;font-weight:600;
+  display:flex;align-items:center;gap:16px;transition:color .15s;
+}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"Q";font-family:var(--mono);color:var(--amber);font-size:14px;border:1px solid var(--line);border-radius:8px;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 30px}
+summary:hover{color:var(--amber-soft)}
+details[open] summary{color:var(--amber-soft)}
+details p{padding:0 4px 22px 50px;color:var(--paper-dim);font-size:15.5px;max-width:62ch}
+
+/* footer */
+footer{border-top:1px solid var(--line-2);padding:52px 0 64px;margin-top:40px}
+.foot{display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;justify-content:space-between}
+.foot .logo{font-size:19px}
+.foot small{display:block;color:var(--paper-faint);font-family:var(--mono);font-size:12px;margin-top:10px}
+.foot nav{display:flex;gap:24px;flex-wrap:wrap}
+.foot nav a{color:var(--paper-dim);text-decoration:none;font-size:14.5px}
+.foot nav a:hover{color:var(--amber-soft)}
+
+/* reveal animation */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.on{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+
+@media(max-width:900px){
+  .scenes{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:1fr}
+  .privacy-band{grid-template-columns:1fr;padding:40px 30px}
+  .bar nav a:not(.lang){display:none}
+  section{padding:64px 0}
+  .hero{padding:64px 0 24px}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="logo" href="/KenjaSub/"><span class="dot"></span>KenjaSub</a>
+    <nav>
+      <a href="#workflow">Workflow</a>
+      <a href="#features">Features</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#faq">FAQ</a>
+      <a class="lang" href="/KenjaSub/zh.html" hreflang="zh-Hans">中文</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="tc rv">00:00:01,000 → 00:00:04,200 · SRT · 24 fps</div>
+    <h1 class="rv d1">Every film deserves<br><em>perfect subtitles.</em></h1>
+    <p class="sub rv d2">
+      KenjaSub is an <strong>AI subtitle editor for Mac</strong>. Drop in any video —
+      transcription runs entirely on your machine, translation happens
+      <strong>in context</strong> with the AI model of your choice, and a
+      frame-accurate studio polishes every line. SRT &amp; WebVTT out.
+    </p>
+    <div class="cta-row rv d3">
+      <!-- TODO: replace with the real App Store URL once the listing is live -->
+      <a class="btn btn-amber" href="https://apps.apple.com/search?term=KenjaSub" rel="noopener">Coming to the Mac App Store</a>
+      <a class="btn btn-ghost" href="https://github.com/KenjaHub" rel="noopener">GitHub · KenjaHub</a>
+      <span class="cta-note">macOS 26+ · Apple Silicon recommended</span>
+    </div>
+
+    <figure class="screen rv d3">
+      <img src="assets/refine.png" alt="KenjaSub subtitle studio on Mac: video player, synchronized cue list, waveform and AI assistant panel" width="2560" height="1600" fetchpriority="high">
+      <div class="rec"><i></i>REFINE</div>
+      <div class="tcode">TC 00:00:24:12</div>
+      <div class="cap">
+        <span>転写も翻訳も、この Mac の中だけで完結する</span>
+        <span>Transcription and translation never leave your Mac</span>
+        <span>转写与翻译，全部在本机完成</span>
+        <span>— KenjaSub, the sage's subtitle studio</span>
+      </div>
+    </figure>
+  </section>
+
+  <!-- WORKFLOW -->
+  <section id="workflow">
+    <div class="sec-head rv"><span class="idx">01</span><h2>Three tabs, one workflow</h2></div>
+    <p class="sec-lead rv">From raw video to shipped bilingual subtitles without leaving the app — batch it, refine it, and bring your own model.</p>
+    <div class="scenes">
+      <article class="scene rv">
+        <span class="tag">TAB 01 · AUTO</span>
+        <h3>Batch, hands-off</h3>
+        <p>Drop several videos and get subtitle files. Speech recognition, translation and export run as one queue — per-video overrides, live progress, one-click retry.</p>
+        <img src="assets/auto.png" alt="KenjaSub Auto tab: batch transcription and translation queue for multiple videos" loading="lazy" width="2560" height="1600">
+      </article>
+      <article class="scene rv d1">
+        <span class="tag">TAB 02 · REFINE</span>
+        <h3>The subtitle studio</h3>
+        <p>An mpv-based player opens MKV, WebM and AVI natively. Cue list and waveform stay in sync; drag timings, split and merge cues, shift the whole track, undo anything, export SRT or WebVTT.</p>
+        <img src="assets/refine.png" alt="KenjaSub Refine studio: bilingual cue list, waveform timing and video preview" loading="lazy" width="2560" height="1600">
+      </article>
+      <article class="scene rv d2">
+        <span class="tag">TAB 03 · MODELS</span>
+        <h3>Bring your own key</h3>
+        <p>Any OpenAI-compatible provider — OpenAI, DeepSeek, OpenRouter, Ollama, LM Studio or your own endpoint. Keys live in your Mac's Keychain, never in plain files.</p>
+        <img src="assets/models.png" alt="KenjaSub Models tab: manage OpenAI-compatible AI providers with keys stored in Keychain" loading="lazy" width="2560" height="1600">
+      </article>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="sec-head rv"><span class="idx">02</span><h2>Built for people who care about lines</h2></div>
+    <p class="sec-lead rv">Not a cloud dashboard — a native Mac tool with an opinion about quality.</p>
+    <div class="feat-grid rv">
+      <div class="feat">
+        <span class="k">TRANSCRIPTION</span>
+        <h3>On-device, always</h3>
+        <p>Speech recognition runs with Apple's SpeechAnalyzer. Your audio never leaves the Mac — no uploads, no queue on someone else's server.</p>
+      </div>
+      <div class="feat">
+        <span class="k">TRANSLATION</span>
+        <h3>Reads the whole film</h3>
+        <p>Lines are translated in context windows, so pronouns, tone and recurring names stay consistent from opening scene to credits. Six registers, from Literal to YouTube.</p>
+      </div>
+      <div class="feat">
+        <span class="k">ASSISTANT</span>
+        <h3>Chat with your subtitles</h3>
+        <p>Retranslate a scene, shorten a line, fix a name — conversationally. "Ask before changes" stages every edit as a reviewable diff; automatic mode applies instantly with one-click undo.</p>
+      </div>
+      <div class="feat">
+        <span class="k">TIMING</span>
+        <h3>Frame-accurate control</h3>
+        <p>Drag cue boundaries on the waveform, set in/out points at the playhead, type exact timecodes, split, merge, or shift the entire track. Full undo history included.</p>
+      </div>
+      <div class="feat">
+        <span class="k">FORMATS</span>
+        <h3>MKV in, SRT/VTT out</h3>
+        <p>Native MKV, WebM and AVI playback via mpv. Bilingual SRT imports with automatic language detection — your existing translations come along.</p>
+      </div>
+      <div class="feat">
+        <span class="k">QUALITY</span>
+        <h3>Readable by design</h3>
+        <p>Reading-speed and line-length checks keep subtitles comfortable on screen. When a source language or model answer looks wrong, KenjaSub stops and tells you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section id="privacy">
+    <div class="sec-head rv"><span class="idx">03</span><h2>Private by default</h2></div>
+    <div class="privacy-band rv">
+      <div>
+        <h2>No accounts. No analytics. <em>No tracking.</em></h2>
+        <p>KenjaSub is private the way a hammer is private — it's a tool on your machine, not a service with a login. The rare data that moves, moves only when you choose an engine and only to the provider you configured.</p>
+        <p style="margin-top:18px"><a href="privacy.html" style="color:var(--amber-soft)">Read the privacy policy →</a></p>
+      </div>
+      <div class="pill-list">
+        <div class="pill"><span class="tick">✓</span><span><b>Transcription:</b> 100% on device</span></div>
+        <div class="pill"><span class="tick">✓</span><span><b>Local engine option:</b> Apple Translation, on device</span></div>
+        <div class="pill"><span class="tick">✓</span><span><b>API keys:</b> stored in Keychain only</span></div>
+        <div class="pill"><span class="tick">✓</span><span><b>Telemetry:</b> none, ever</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head rv"><span class="idx">04</span><h2>Questions, answered</h2></div>
+    <div class="faq rv">
+      <details open>
+        <summary>Does KenjaSub upload my video or audio anywhere?</summary>
+        <p>No. Speech transcription runs entirely on your Mac with Apple's SpeechAnalyzer — audio never leaves the device. When you choose an AI translation engine, subtitle text is sent only to the provider you configured, only when you run that engine.</p>
+      </details>
+      <details>
+        <summary>Which AI models can it use for translation?</summary>
+        <p>Any OpenAI-compatible provider: OpenAI, DeepSeek, OpenRouter, Ollama, LM Studio or your own endpoint — keys live in your Mac's Keychain. A fully local option using Apple's Translation framework is built in as well.</p>
+      </details>
+      <details>
+        <summary>Which video and subtitle formats are supported?</summary>
+        <p>The player opens MKV, WebM and AVI natively (mpv-based), plus standard MP4 and MOV. Subtitles import and export as SRT and WebVTT, including bilingual SRT files with automatic language detection.</p>
+      </details>
+      <details>
+        <summary>Can I edit subtitle timings manually?</summary>
+        <p>Yes — drag boundaries on the waveform, set in/out points at the playhead (⌘[ / ⌘]), type exact timecodes in the edit sheet, split and merge cues, shift the whole track earlier or later, and undo any of it.</p>
+      </details>
+      <details>
+        <summary>What are the system requirements?</summary>
+        <p>macOS 26 or later. On-device transcription and translation use Apple's neural frameworks, so Apple Silicon is recommended.</p>
+      </details>
+      <details>
+        <summary>Does KenjaSub include AI model access?</summary>
+        <p>No — AI features are strictly bring-your-own-key. You add a provider and key of your choice; KenjaSub never bundles or resells model access, which keeps your costs and your data under your control.</p>
+      </details>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="logo" href="/KenjaSub/"><span class="dot"></span>KenjaSub</a>
+      <small>© 2026 KenjaHub · The sage's subtitle studio</small>
+    </div>
+    <nav>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="https://github.com/KenjaHub" rel="noopener">GitHub</a>
+      <a href="https://github.com/KenjaHub/KenjaSub/issues" rel="noopener">Support</a>
+      <a href="zh.html">中文页面</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
