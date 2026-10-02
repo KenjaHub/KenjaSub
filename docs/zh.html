@@ -64,8 +64,15 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2;opac
 .bar nav{margin-left:auto;display:flex;gap:26px;align-items:center}
 .bar nav a{color:var(--paper-dim);text-decoration:none;font-size:14.5px;transition:color .18s}
 .bar nav a:hover{color:var(--amber-soft)}
-.lang{font-family:var(--mono);font-size:12.5px;color:var(--paper-faint);text-decoration:none;border:1px solid var(--line-2);padding:5px 11px;border-radius:99px;transition:all .18s}
-.lang:hover{border-color:var(--amber);color:var(--amber)}
+.lang-menu{position:relative;font-family:var(--mono);font-size:12.5px}
+.lang-menu summary{list-style:none;cursor:pointer;user-select:none;color:var(--paper-faint);border:1px solid var(--line-2);padding:5px 11px;border-radius:99px;display:inline-flex;align-items:center;gap:7px;transition:all .18s}
+.lang-menu summary::-webkit-details-marker{display:none}
+.lang-menu summary::after{content:"";width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid currentColor;margin-top:2px}
+.lang-menu summary:hover,.lang-menu[open] summary{border-color:var(--amber);color:var(--amber)}
+.lang-pop{position:absolute;right:0;top:calc(100% + 10px);background:var(--ink-3);border:1px solid var(--line-2);border-radius:12px;padding:6px;display:flex;flex-direction:column;min-width:132px;z-index:60;box-shadow:0 18px 50px rgba(0,0,0,.55)}
+.lang-pop a{color:var(--paper-dim);text-decoration:none;padding:8px 12px;border-radius:8px;font-size:12.5px;white-space:nowrap;transition:color .15s,background .15s}
+.lang-pop a:hover{background:rgba(240,180,41,.09);color:var(--amber)}
+.lang-pop a[aria-current]{color:var(--amber);pointer-events:none}
 .hero{padding:96px 0 40px}
 .hero .tc{font-family:var(--mono);font-size:12.5px;color:var(--amber);letter-spacing:.14em;display:flex;align-items:center;gap:14px;margin-bottom:26px}
 .hero .tc::after{content:"";height:1px;flex:0 0 72px;background:linear-gradient(90deg,var(--amber),transparent)}
@@ -74,12 +81,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2;opac
 .hero .sub{margin-top:26px;max-width:34em;color:var(--paper-dim);font-size:18px}
 .hero .sub strong{color:var(--paper);font-weight:600}
 .cta-row{margin-top:38px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 26px;border-radius:12px;text-decoration:none;font-weight:600;font-size:15.5px;transition:transform .16s,background .16s}
-.btn:hover{transform:translateY(-2px)}
-.btn-amber{background:var(--amber);color:#241b05;box-shadow:0 8px 30px rgba(240,180,41,.25)}
-.btn-amber:hover{background:var(--amber-soft)}
-.btn-ghost{border:1px solid var(--line-2);color:var(--paper)}
-.btn-ghost:hover{border-color:var(--amber);color:var(--amber-soft)}
+.appstore-badge{display:inline-block;line-height:0;transition:transform .16s}
+.appstore-badge:hover{transform:translateY(-2px)}
+.appstore-badge img{display:block;height:56px;width:auto}
 .cta-note{font-family:var(--mono);font-size:12.5px;color:var(--paper-faint)}
 .screen{margin:64px 0 0;position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line-2);background:linear-gradient(180deg,#191521,#0d0b11);box-shadow:0 40px 120px rgba(0,0,0,.55)}
 .screen img{display:block;width:100%;height:auto;opacity:.92}
@@ -141,9 +145,10 @@ footer{border-top:1px solid var(--line-2);padding:52px 0 64px;margin-top:40px}
   .scenes{grid-template-columns:1fr}
   .feat-grid{grid-template-columns:1fr}
   .privacy-band{grid-template-columns:1fr;padding:40px 30px}
-  .bar nav a:not(.lang){display:none}
+  .bar nav > a{display:none}
   section{padding:64px 0}
   .hero{padding:64px 0 24px}
+  .appstore-badge img{height:48px}
 }
 </style>
 </head>
@@ -157,7 +162,13 @@ footer{border-top:1px solid var(--line-2);padding:52px 0 64px;margin-top:40px}
       <a href="#features">功能</a>
       <a href="#privacy">隐私</a>
       <a href="#faq">常见问题</a>
-      <a class="lang" href="/" hreflang="en">EN</a>
+      <details class="lang-menu">
+        <summary>Language</summary>
+        <div class="lang-pop">
+          <a href="/" hreflang="en">English</a>
+          <a href="/zh.html" hreflang="zh-Hans" aria-current="page">简体中文</a>
+        </div>
+      </details>
     </nav>
   </div>
 </header>
@@ -175,8 +186,9 @@ footer{border-top:1px solid var(--line-2);padding:52px 0 64px;margin-top:40px}
       导出 SRT / WebVTT 双语字幕。
     </p>
     <div class="cta-row rv d3">
-      <a class="btn btn-amber" href="https://apps.apple.com/us/app/kenjasub-video-subtitle-editor/id6812369916" rel="noopener">立即在 Mac App Store 下载 · 免费</a>
-      <a class="btn btn-ghost" href="https://github.com/KenjaHub" rel="noopener">GitHub · KenjaHub</a>
+      <a class="appstore-badge" href="https://apps.apple.com/us/app/kenjasub-video-subtitle-editor/id6812369916" rel="noopener">
+        <img src="assets/app-store-badge.svg" alt="Download on the App Store" width="120" height="40">
+      </a>
       <span class="cta-note">macOS 26+ · 推荐 Apple Silicon</span>
     </div>
 
@@ -315,7 +327,6 @@ footer{border-top:1px solid var(--line-2);padding:52px 0 64px;margin-top:40px}
       <a href="privacy.html">隐私政策</a>
       <a href="https://github.com/KenjaHub" rel="noopener">GitHub</a>
       <a href="https://github.com/KenjaHub/KenjaSub/issues" rel="noopener">支持</a>
-      <a href="index.html">English</a>
     </nav>
   </div>
 </footer>
@@ -323,6 +334,7 @@ footer{border-top:1px solid var(--line-2);padding:52px 0 64px;margin-top:40px}
 <script>
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.12});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+document.addEventListener('click',e=>{document.querySelectorAll('details.lang-menu[open]').forEach(d=>{if(!d.contains(e.target))d.removeAttribute('open')})});
 </script>
 </body>
 </html>
