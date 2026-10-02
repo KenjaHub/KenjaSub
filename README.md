@@ -14,7 +14,7 @@
 <em>The Refine studio — video, synchronized cue list, waveform timing, and an AI assistant that edits subtitles conversationally.</em>
 </p>
 
-**[Download on the Mac App Store · Free](https://apps.apple.com/us/app/kenjasub-video-subtitle-editor/id6812369916) · [Website](https://kenjahub.github.io/KenjaSub/) · [中文介绍](#中文介绍) · [Privacy Policy](privacy.md) · [Support](https://github.com/KenjaHub/KenjaSub/issues)**
+**[Download on the Mac App Store · Free](https://apps.apple.com/us/app/kenjasub-video-subtitle-editor/id6812369916) · [Website](https://kenjasub.kofukuai.com/) · [中文介绍](#中文介绍) · [Privacy Policy](privacy.md) · [Support](https://github.com/KenjaHub/KenjaSub/issues)**
 
 </div>
 
@@ -69,8 +69,8 @@ Yes — waveform drag, playhead in/out points, typed timecodes, split, merge, gl
 ## Links
 
 - [Download on the Mac App Store](https://apps.apple.com/us/app/kenjasub-video-subtitle-editor/id6812369916) — free
-- [Website](https://kenjahub.github.io/KenjaSub/) — features, FAQ and privacy in one page
-- [中文页面](https://kenjahub.github.io/KenjaSub/zh.html)
+- [Website](https://kenjasub.kofukuai.com/) — features, FAQ and privacy in one page
+- [中文页面](https://kenjasub.kofukuai.com/zh.html)
 - [Privacy Policy](privacy.md)
 - [Support / Issues](https://github.com/KenjaHub/KenjaSub/issues)
 
@@ -100,7 +100,7 @@ Kenja 在日语中意为「智者」（sage）——这也是我们的目标：�
 
 macOS 26 或更高版本，推荐 Apple Silicon。[Mac App Store](https://apps.apple.com/us/app/kenjasub-video-subtitle-editor/id6812369916) 免费下载。KenjaSub 不附带 AI 模型访问；AI 翻译与助手需要你自己选择的服务商 API Key。
 
-**[立即下载 · Mac App Store](https://apps.apple.com/us/app/kenjasub-video-subtitle-editor/id6812369916) · [中文官网](https://kenjahub.github.io/KenjaSub/zh.html) · [隐私政策](https://kenjahub.github.io/KenjaSub/privacy.html)**
+**[立即下载 · Mac App Store](https://apps.apple.com/us/app/kenjasub-video-subtitle-editor/id6812369916) · [中文官网](https://kenjasub.kofukuai.com/zh.html) · [隐私政策](https://kenjasub.kofukuai.com/privacy.html)**
 
 ---
 
